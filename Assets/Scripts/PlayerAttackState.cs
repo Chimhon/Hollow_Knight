@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class PlayerAttackState : PlayerState
 {
+
+    private int AttackAction;
+
     public PlayerAttackState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)
     {
     }
@@ -13,7 +16,7 @@ public class PlayerAttackState : PlayerState
     {
         base.Enter();
         stateTimer = 0.15f;
-        player.attackDuraition = 0.3f;
+
 
         if (Input.GetKey(KeyCode.RightArrow))
             player.fx.swordSlashFX.SetSwordSlash(1.2f, 0.265f, 180);

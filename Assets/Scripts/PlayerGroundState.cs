@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerGroundState : PlayerState
 {
+    private float lookTimer = 0.2f;
     public PlayerGroundState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)
     {
     }
@@ -21,6 +22,22 @@ public class PlayerGroundState : PlayerState
     public override void Update()
     {
         base.Update();
+
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            lookTimer -= Time.deltaTime;
+            if (lookTimer <= 0)
+                stateMachine.ChangeState(player.lookUpState);
+        }
+        else if (Input.GetKey(KeyCode.DownArrow))
+        {
+            lookTimer -= Time.deltaTime;
+            if (lookTimer <= 0)
+                stateMachine.ChangeState(player.lookDownState);
+        }
+        else lookTimer = 0.2f;
+
+
         if (!player.isGroundDetected() && !player.isJumping)
             stateMachine.ChangeState(player.airState);
 

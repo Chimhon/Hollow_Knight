@@ -10,7 +10,6 @@ public class Player : Entity
     [Header("BaseParameter")]
     public float moveSpeed;
     public float jumpForce;
-    public float attackDuraition = 0.2f;
 
     [Header("Jump")]
     public bool isJumping;
@@ -30,12 +29,14 @@ public class Player : Entity
     #region State
     public PlayerStateMachine stateMachine { get; private set; }
     public PlayerIdleState idleState { get; private set; }
-    public PlayerMoveState moveState { get; private set; }
+    public PlayerWalkState moveState { get; private set; }
     public PlayerJumpState jumpState { get; private set; }
     public PlayerAttackState attackState { get; private set; }
     public PlayerAirState airState { get; private set; }
     public PlayerWallSliderState wallSliderState { get; private set; }
     public PlayerWallJumpState wallJumpState { get; private set; }
+    public PlayerLookUpState lookUpState { get; private set; }
+    public PlayerLookDownState lookDownState { get; private set; }
     #endregion
     
 
@@ -44,12 +45,14 @@ public class Player : Entity
         base.Awake();
         stateMachine = new PlayerStateMachine();
         idleState = new PlayerIdleState(this, stateMachine, "Idle");
-        moveState = new PlayerMoveState(this, stateMachine, "Move");
+        moveState = new PlayerWalkState(this, stateMachine, "Walk");
         jumpState = new PlayerJumpState(this, stateMachine, "Jump");
         attackState = new PlayerAttackState(this, stateMachine, "Attack");
         airState = new PlayerAirState(this, stateMachine, "Jump");
-        wallJumpState = new PlayerWallJumpState(this, stateMachine, "Jump");
         wallSliderState = new PlayerWallSliderState(this, stateMachine, "WallSlider");
+        wallJumpState = new PlayerWallJumpState(this, stateMachine, "WallJump");
+        lookUpState = new PlayerLookUpState(this, stateMachine, "LookUp");
+        lookDownState = new PlayerLookDownState(this, stateMachine, "LookDown");
 
     }
 
@@ -68,8 +71,8 @@ public class Player : Entity
 
         stateMachine.currentState.Update();
 
-        attackDuraition -= Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.X) && attackDuraition <=0)
+
+        if (Input.GetKeyDown(KeyCode.X))
             stateMachine.ChangeState(attackState);
     }
 
@@ -95,29 +98,5 @@ public class Player : Entity
         Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y));
     }
     #endregion
-
-
-    //public void CreateSwordAttack(float Xrotation,float Yposition)
-    //{
-    //    Quaternion Rotation = Quaternion.Euler(Xrotation, -90, 90);
-    //    Rotation.Normalize();
-    //    SwordSlash.GetComponent<Transform>().rotation = Rotation;
-    //    Transform swordTransform = Transform.Instantiate(SwordSlash.transform, new Vector2(SwordSlash.transform.position.x, SwordSlash.transform.position.y + Yposition), Quaternion.identity);
-    //    SwordSlash.GetComponent<Transform>().position = swordTransform.position;
-    //    SwordSlash.Play();
-    //}
-
-    //public void CreateSwordNoDir(float Xposition)
-    //{
-
-    //    Quaternion Rotation = Quaternion.Euler(facingDir == -1 ? 0 : 180, -90, 90);
-    //    SwordSlash.GetComponent<Transform>().rotation = Rotation;
-    //    Transform swordTransform = Transform.Instantiate(SwordSlash.transform, new Vector2(SwordSlash.transform.position.x + Xposition * facingDir, SwordSlash.transform.position.y),Quaternion.identity);
-    //    SwordSlash.GetComponent<Transform>().position = swordTransform.position;
-    //    SwordSlash.Play();
-    //}
-
-
-
 
 }
