@@ -22,7 +22,12 @@ public class PlayerGroundState : PlayerState
     public override void Update()
     {
         base.Update();
+        if (!player.isGroundDetected()/* && !player.isJumping*/)
+            stateMachine.ChangeState(player.airState);
 
+        if (Input.GetKeyDown(KeyCode.Z) /*&& player.isGroundDetected()*/)
+            stateMachine.ChangeState(player.jumpState);
+        if (isAttacking) return;
         if (Input.GetKey(KeyCode.UpArrow))
         {
             lookTimer -= Time.deltaTime;
@@ -38,11 +43,9 @@ public class PlayerGroundState : PlayerState
         else lookTimer = 0.2f;
 
 
-        if (!player.isGroundDetected() && !player.isJumping)
-            stateMachine.ChangeState(player.airState);
 
-        if (Input.GetKeyDown(KeyCode.Z) && player.isGroundDetected())
-            stateMachine.ChangeState(player.jumpState);
+        if (Input.GetKeyDown(KeyCode.X))
+            stateMachine.ChangeState(player.attackState);
 
 
     }

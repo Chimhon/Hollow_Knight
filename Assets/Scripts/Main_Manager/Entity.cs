@@ -6,7 +6,6 @@ public class Entity : MonoBehaviour
 {
     public Animator anim { get; private set; }
     public Rigidbody2D rb { get; private set; }
-    public EntityFX fx { get; private set; }
 
 
     protected float gravityScale;
@@ -18,7 +17,6 @@ public class Entity : MonoBehaviour
     {
         anim = GetComponentInChildren<Animator>();
         rb = GetComponentInChildren<Rigidbody2D>();
-        fx = GetComponentInChildren<EntityFX>();
     }
 
     protected virtual void Start()

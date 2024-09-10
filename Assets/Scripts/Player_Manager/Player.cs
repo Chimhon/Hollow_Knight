@@ -25,6 +25,7 @@ public class Player : Entity
     public Transform wallCheck;
     [SerializeField] private float wallCheckDistance;
 
+    public PlayerFX fx { get; private set; }
 
     #region State
     public PlayerStateMachine stateMachine { get; private set; }
@@ -59,6 +60,7 @@ public class Player : Entity
     protected override void Start()
     {
         base.Start();
+        fx = GetComponent<PlayerFX>(); 
         stateMachine.Initialize(idleState);
         gravityScale = rb.gravityScale;
     }
@@ -72,8 +74,7 @@ public class Player : Entity
         stateMachine.currentState.Update();
 
 
-        if (Input.GetKeyDown(KeyCode.X))
-            stateMachine.ChangeState(attackState);
+
     }
 
     private void SetGravity()

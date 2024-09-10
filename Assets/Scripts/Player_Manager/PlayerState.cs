@@ -8,6 +8,7 @@ public class PlayerState
     protected PlayerStateMachine stateMachine;
 
     protected float stateTimer;
+    public bool isAttacking;
 
     private string animBoolName;
 

@@ -23,5 +23,7 @@ public class PlayerWalkState : PlayerGroundState
         player.SetVelocity(xInput * player.moveSpeed, rb.velocity.y);
         if(xInput == 0)
             stateMachine.ChangeState(player.idleState);
+        if (Input.GetKeyDown(KeyCode.X))
+            stateMachine.ChangeState(player.attackState);
     }
 }

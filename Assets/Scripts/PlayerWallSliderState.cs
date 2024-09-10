@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerWallSliderState : PlayerState
@@ -22,10 +23,16 @@ public class PlayerWallSliderState : PlayerState
     {
         base.Update();
         rb.velocity = new Vector2(0,rb.velocity.y * 0.8f);
-        if (player.isGroundDetected() )
-            stateMachine.ChangeState(player.idleState);
-        if(!player.isWallDetected())
+
+        if (Input.GetKeyDown(KeyCode.DownArrow))
             stateMachine.ChangeState(player.airState);
+
+        if (player.isGroundDetected())
+            stateMachine.ChangeState(player.idleState);
+
+        if (!player.isWallDetected())
+            stateMachine.ChangeState(player.airState);
+
         if (Input.GetKeyDown(KeyCode.Z))
             stateMachine.ChangeState(player.wallJumpState);
 

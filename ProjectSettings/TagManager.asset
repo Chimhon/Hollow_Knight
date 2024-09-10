@@ -41,6 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Block
+    uniqueID: 3016119395
+    locked: 0
   - name: BlackGround
     uniqueID: 3022505585
     locked: 0

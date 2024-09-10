@@ -7,7 +7,6 @@ public class EntityFX : MonoBehaviour
 {
 
     [HideInInspector] public Player player;
-    public SwordSlashFX swordSlashFX { get; private set;}
 
     private void Awake()
     {
@@ -16,7 +15,6 @@ public class EntityFX : MonoBehaviour
 
     private void Start()
     {
-        swordSlashFX = GetComponent<SwordSlashFX>();
         player = PlayerManager.instance.player;
     }
 

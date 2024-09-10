@@ -13,7 +13,7 @@ public class PlayerJumpState : PlayerState
     {
         base.Enter();
         player.isJumping = true;
-        rb.velocity = new Vector2(rb.velocity.x, player.jumpForce * 1.5f);
+
     }
 
     public override void Exit()
@@ -25,5 +25,6 @@ public class PlayerJumpState : PlayerState
         base.Update();
         if (!player.isGroundDetected())
             stateMachine.ChangeState(player.airState);
+
     }
 }
