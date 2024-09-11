@@ -11,7 +11,8 @@ public class PlayerWallJumpState : PlayerState
     public override void Enter()
     {
         base.Enter();
-
+        if (Input.GetKey(KeyCode.Z))
+            player.jumpTimer = player.jumpTime / 2;
         stateTimer = 0.1f;
         player.SetVelocity(10.5f * -player.facingDir, player.jumpForce * 3);
         xInput = 0;

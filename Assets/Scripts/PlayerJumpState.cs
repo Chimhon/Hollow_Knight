@@ -19,6 +19,8 @@ public class PlayerJumpState : PlayerState
     public override void Exit()
     {
         base.Exit();
+        if (Input.GetKey(KeyCode.Z))
+            player.jumpTimer = player.jumpTime;
     }
     public override void Update()
     {

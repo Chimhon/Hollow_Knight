@@ -1358,14 +1358,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36ef40af3222e524ba96af82c6e41918, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  facingRight: 1
   moveSpeed: 32
   jumpForce: 12
   isJumping: 0
   jumpTime: 1
+  jumpTimer: 0
   jumpCutGravityMult: 3
   isWallJumping: 0
   groundCheck: {fileID: 246597348}
-  groundCheckDistance: 0.4
+  groundCheckDistance: 0.5
   whatGround:
     serializedVersion: 2
     m_Bits: 64
@@ -1380,7 +1382,7 @@ Transform:
   m_GameObject: {fileID: 1735995655}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -15.85, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1464,11 +1466,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  SwordSlashImage:
-  - {fileID: 2800000, guid: b5f62ca76e36e7a4ea3d31e83d0c50d5, type: 3}
-  - {fileID: 2800000, guid: 7ca99a86c34eafb4d9a399d7248dc853, type: 3}
-  - {fileID: 2800000, guid: 47eb8c0186376e3408839ddda25e05a9, type: 3}
-  - {fileID: 2800000, guid: 6bda28b1062e6614fbd7b537d9d64016, type: 3}
+  swordSlashImage:
+  - {fileID: 6607782578021285802, guid: e401018914c9a2c42b01e4b6b7945f37, type: 3}
+  - {fileID: 9069089013796738661, guid: a7b90ccc794574e40938896653c21b23, type: 3}
+  - {fileID: 5541725908266967926, guid: 6b1c488a486ff204c8762deb6c00017d, type: 3}
+  - {fileID: 5110466400431587691, guid: c12eb7d68d298604b938622377f40b34, type: 3}
+  swordParent: {fileID: 1735995657}
 --- !u!1 &1868511933
 GameObject:
   m_ObjectHideFlags: 0

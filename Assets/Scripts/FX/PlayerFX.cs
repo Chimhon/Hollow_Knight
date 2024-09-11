@@ -4,35 +4,32 @@ using UnityEngine;
 
 public class PlayerFX : EntityFX
 {
-    [SerializeField] private List<Texture2D> SwordSlashImage;
-
+    [SerializeField] private List<GameObject> swordSlashImage;
+    GameObject swordSlash;
+    [SerializeField] private Transform swordParent;
 
     private void Awake()
     {
 
     }
 
-
-    //public void SetSwordSlash(float _xPosition, float _yPostion, float _xRotation)
-    //{
-    //    Vector3 SwordSlashPosition = new Vector3(_xPosition * player.facingDir, _yPostion, 0);
-    //    SwordSlashPosition += player.transform.position;
-    //    Quaternion SwordSlashRotation = Quaternion.Euler(_xRotation, -90, 90);
-
-    //    GameObject swordSlash = Instantiate(swordSlashPrefab, SwordSlashPosition, SwordSlashRotation, swordParent);
-    //    swordSlashEffect = swordSlash.GetComponent<ParticleSystem>();
-    //    swordSlashEffect.Play();
-    //    Destroy(swordSlash, 1f);
-    //}
-
     private void Update()
     {
 
     }
 
-    public void SetSwordSlash(int ImageNumber)
+    public void SetSwordSlash(int ImageNumber, float _xPosition, float _yPosition,int _Mode2Rotation = 0)
     {
-        GameObject swordSlash = Instantiate(SwordSlashImage[ImageNumber].GameObject(),player.transform.position,Quaternion.identity);
+        Vector3 SwordSlashPosition = new Vector3(_xPosition * player.facingDir, _yPosition);
+        SwordSlashPosition += player.transform.position;
+        Quaternion SwordSlashRotation = Quaternion.Euler(0, player.facingDir == 1 ? 0 : 180, _Mode2Rotation);
+        swordSlash = Instantiate(swordSlashImage[ImageNumber], SwordSlashPosition, SwordSlashRotation, swordParent);
+        Destroy(swordSlash,0.1f);
+    }
+    public void DestroySwordSlash()
+    {
+        if(swordSlash != null)
+            Destroy(swordSlash);
     }
 
 

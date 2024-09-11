@@ -42,8 +42,6 @@ public class PlayerGroundState : PlayerState
         }
         else lookTimer = 0.2f;
 
-
-
         if (Input.GetKeyDown(KeyCode.X))
             stateMachine.ChangeState(player.attackState);
 

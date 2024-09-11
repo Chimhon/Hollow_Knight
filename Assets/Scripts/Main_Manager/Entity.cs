@@ -11,7 +11,7 @@ public class Entity : MonoBehaviour
     protected float gravityScale;
 
     public int facingDir { get; private set; } = 1;
-    private bool facingRight = true;
+    public bool facingRight = true;
 
     protected virtual void Awake()
     {

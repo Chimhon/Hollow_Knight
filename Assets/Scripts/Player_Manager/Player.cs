@@ -15,6 +15,7 @@ public class Player : Entity
     public bool isJumping;
     private int maxFallSpeed = 50;
     public float jumpTime;
+    public float jumpTimer;
     public float jumpCutGravityMult;
     public bool isWallJumping;
 
@@ -30,7 +31,7 @@ public class Player : Entity
     #region State
     public PlayerStateMachine stateMachine { get; private set; }
     public PlayerIdleState idleState { get; private set; }
-    public PlayerWalkState moveState { get; private set; }
+    public PlayerWalkState walkState { get; private set; }
     public PlayerJumpState jumpState { get; private set; }
     public PlayerAttackState attackState { get; private set; }
     public PlayerAirState airState { get; private set; }
@@ -41,12 +42,13 @@ public class Player : Entity
     #endregion
     
 
+
     protected override void Awake()
     {
         base.Awake();
         stateMachine = new PlayerStateMachine();
         idleState = new PlayerIdleState(this, stateMachine, "Idle");
-        moveState = new PlayerWalkState(this, stateMachine, "Walk");
+        walkState = new PlayerWalkState(this, stateMachine, "Walk");
         jumpState = new PlayerJumpState(this, stateMachine, "Jump");
         attackState = new PlayerAttackState(this, stateMachine, "Attack");
         airState = new PlayerAirState(this, stateMachine, "Jump");
@@ -70,14 +72,37 @@ public class Player : Entity
         base.Update();
 
         SetGravity();
-
         stateMachine.currentState.Update();
 
-
+        jumpTimer -= Time.deltaTime * 2f;
+        JumpContorller();
 
     }
 
-    private void SetGravity()
+    private void JumpContorller()
+    {
+        if (Input.GetKeyDown(KeyCode.Z) && isGroundDetected())
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce * 2f);
+        }
+        if (isJumping)
+        {
+            if (Input.GetKeyUp(KeyCode.Z) && rb.velocity.y > 0)
+            {
+                jumpTimer = 0;
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                isJumping = false;
+            }
+            jumpTimer = Mathf.Clamp(jumpTimer, 0f, 1f);
+
+            if (jumpTimer > 0)
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce * (jumpTimer * 7f));
+            else
+                rb.velocity = new Vector2(rb.velocity.x,rb.velocity.y);
+        }      
+    }
+
+        private void SetGravity()
     {
         if (rb.velocity.y < 0)
         {
